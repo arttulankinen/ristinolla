@@ -22,18 +22,20 @@ function Ristinolla() {
   };
 
   const calculateWinner = (board) => {
-    const lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      [0, 4, 8], [2, 4, 6]             
+    const voittolinja = [
+      [0,1,2], [3,4,5], [6,7,8], //rivit
+      [0,4,8], [2,4,6],  //sivuttaislinja
+      [0,3,6],[1,4,7], [2,5,8] //pystyrivit
     ];
-    for (let line of lines) {
-      const [a, b, c] = line;
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a];
-      }
+
+  for(let linja of voittolinja) {
+    const [rivit, pystyrivit, sivuttaislinja] = linja;
+
+    if(board[rivit] && board[rivit] === board[pystyrivit] && board[rivit] === board[sivuttaislinja]){
+      return board[rivit];
     }
-    return null;
+  }
+  return null;
   };
 
   const resetGame = () => {
@@ -65,8 +67,10 @@ function Ristinolla() {
         {renderButton(7)}
         {renderButton(8)}
       </div>
-      {voitto && <p>Voittaja: {voitto}</p>}
-      <button onClick={resetGame}>Reset Game</button>
+      <div id='voittaja'>
+      {voitto && <p id='voittajatxt'>Voittaja: {voitto}</p>}
+      <button id='reset' onClick={resetGame}>Reset Game</button>
+    </div>
     </div>
   );
 }
